@@ -95,6 +95,8 @@ build() {
   )
 
   local _meson_options=(
+    -Dversion-tag="${pkgver}-${pkgrel}-git"
+
     -Dgnu-efi=true
     -Dima=false
     -Dlibidn2=true
@@ -128,7 +130,7 @@ package_systemd-git() {
            'libgcrypt' 'systemd-libs' 'libidn2' 'libidn2.so' 'lz4' 'pam' 'libelf'
            'libseccomp' 'util-linux' 'xz' 'pcre2' 'audit')
   provides=("${_pkgbase}=$pkgver" 'nss-myhostname' "systemd-tools=$pkgver" "udev=$pkgver")
-  replaces=("${_pkgbase}" 'nss-myhostname' 'systemd-tools' 'udev')
+  replaces=('nss-myhostname' 'systemd-tools' 'udev')
   conflicts=("${_pkgbase}" 'nss-myhostname' 'systemd-tools' 'udev')
   optdepends=('libmicrohttpd: remote journald capabilities'
               'quota-tools: kernel-level quota management'
@@ -141,9 +143,11 @@ package_systemd-git() {
           etc/systemd/journal-remote.conf
           etc/systemd/journal-upload.conf
           etc/systemd/logind.conf
+          etc/systemd/networkd.conf
+          etc/systemd/resolved.conf
+          etc/systemd/sleep.conf
           etc/systemd/system.conf
           etc/systemd/timesyncd.conf
-          etc/systemd/resolved.conf
           etc/systemd/user.conf
           etc/udev/udev.conf)
   install=systemd.install
@@ -213,7 +217,7 @@ package_systemd-libs-git() {
   license=('LGPL2.1')
   provides=('systemd-libs' 'libsystemd' 'libsystemd.so' 'libudev.so')
   conflicts=('systemd-libs' 'libsystemd')
-  replaces=('systemd-libs' 'libsystemd')
+  replaces=('libsystemd')
 
   install -d -m0755 "$pkgdir"/usr
   mv systemd-libs "$pkgdir"/usr/lib
@@ -225,7 +229,6 @@ package_systemd-resolvconf-git() {
   depends=('systemd-git')
   provides=('systemd-resolvconf' 'openresolv' 'resolvconf')
   conflicts=('systemd-resolvconf' 'openresolv')
-  replaces=('systemd-resolvconf')
 
   install -d -m0755 "$pkgdir"/usr/bin
   ln -s resolvectl "$pkgdir"/usr/bin/resolvconf
@@ -241,7 +244,6 @@ package_systemd-sysvcompat-git() {
   depends=('systemd-git')
   provides=('systemd-sysvcompat')
   conflicts=('systemd-sysvcompat' 'sysvinit')
-  replaces=('systemd-sysvcompat')  
 
   install -D -m0644 -t "$pkgdir"/usr/share/man/man8 \
     build/man/{telinit,halt,reboot,poweroff,runlevel,shutdown}.8
