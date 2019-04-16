@@ -1,8 +1,8 @@
 diff --git a/man/systemctl.xml b/man/systemctl.xml
-index 08aacd8f41..a0b77eeb05 100644
+index d991e979f1..18adbe65dd 100644
 --- a/man/systemctl.xml
 +++ b/man/systemctl.xml
-@@ -335,9 +335,10 @@
+@@ -346,9 +346,10 @@
            <para>Just print what would be done. Currently supported by verbs
            <command>halt</command>, <command>poweroff</command>, <command>reboot</command>,
            <command>kexec</command>, <command>suspend</command>, <command>hibernate</command>,
@@ -16,7 +16,7 @@ index 08aacd8f41..a0b77eeb05 100644
          </listitem>
        </varlistentry>
  
-@@ -1888,6 +1889,17 @@ Jan 12 10:46:45 example.com bluetoothd[8900]: gatt-time-server: Input/output err
+@@ -1918,6 +1919,17 @@ Jan 12 10:46:45 example.com bluetoothd[8900]: gatt-time-server: Input/output err
            </listitem>
          </varlistentry>
  
@@ -35,10 +35,10 @@ index 08aacd8f41..a0b77eeb05 100644
            <term><command>hybrid-sleep</command></term>
  
 diff --git a/man/systemd-sleep.conf.xml b/man/systemd-sleep.conf.xml
-index 96e6d5e452..883a26a384 100644
+index 3311a046ca..ff5eddade9 100644
 --- a/man/systemd-sleep.conf.xml
 +++ b/man/systemd-sleep.conf.xml
-@@ -134,6 +134,7 @@
+@@ -131,6 +131,7 @@
        <varlistentry>
          <term><varname>SuspendMode=</varname></term>
          <term><varname>HibernateMode=</varname></term>
@@ -46,7 +46,7 @@ index 96e6d5e452..883a26a384 100644
          <term><varname>HybridSleepMode=</varname></term>
  
          <listitem><para>The string to be written to
-@@ -141,6 +142,7 @@
+@@ -138,6 +139,7 @@
          respectively,
          <citerefentry><refentrytitle>systemd-suspend.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
          <citerefentry><refentrytitle>systemd-hibernate.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
@@ -54,7 +54,7 @@ index 96e6d5e452..883a26a384 100644
          <citerefentry><refentrytitle>systemd-hybrid-sleep.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>, or
          <citerefentry><refentrytitle>systemd-suspend-then-hibernate.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
          More than one value can be specified by separating
-@@ -153,6 +155,7 @@
+@@ -150,6 +152,7 @@
        <varlistentry>
          <term><varname>SuspendState=</varname></term>
          <term><varname>HibernateState=</varname></term>
@@ -62,7 +62,7 @@ index 96e6d5e452..883a26a384 100644
          <term><varname>HybridSleepState=</varname></term>
  
          <listitem><para>The string to be written to
-@@ -160,6 +163,7 @@
+@@ -157,6 +160,7 @@
          respectively,
          <citerefentry><refentrytitle>systemd-suspend.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
          <citerefentry><refentrytitle>systemd-hibernate.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
@@ -71,10 +71,10 @@ index 96e6d5e452..883a26a384 100644
          <citerefentry><refentrytitle>systemd-suspend-then-hibernate.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
          More than one value can be specified by separating
 diff --git a/man/systemd-suspend.service.xml b/man/systemd-suspend.service.xml
-index cef7adb671..ca238ec217 100644
+index 2310e6f526..12a8227b42 100644
 --- a/man/systemd-suspend.service.xml
 +++ b/man/systemd-suspend.service.xml
-@@ -22,6 +22,7 @@
+@@ -19,6 +19,7 @@
    <refnamediv>
      <refname>systemd-suspend.service</refname>
      <refname>systemd-hibernate.service</refname>
@@ -82,7 +82,7 @@ index cef7adb671..ca238ec217 100644
      <refname>systemd-hybrid-sleep.service</refname>
      <refname>systemd-suspend-then-hibernate.service</refname>
      <refname>systemd-sleep</refname>
-@@ -31,6 +32,7 @@
+@@ -28,6 +29,7 @@
    <refsynopsisdiv>
      <para><filename>systemd-suspend.service</filename></para>
      <para><filename>systemd-hibernate.service</filename></para>
@@ -90,7 +90,7 @@ index cef7adb671..ca238ec217 100644
      <para><filename>systemd-hybrid-sleep.service</filename></para>
      <para><filename>systemd-suspend-then-hibernate.service</filename></para>
      <para><filename>/usr/lib/systemd/system-sleep</filename></para>
-@@ -44,9 +46,11 @@
+@@ -41,9 +43,11 @@
      and is responsible for the actual system suspend. Similarly,
      <filename>systemd-hibernate.service</filename> is pulled in by
      <filename>hibernate.target</filename> to execute the actual
@@ -105,7 +105,7 @@ index cef7adb671..ca238ec217 100644
      hibernation with system suspend and pulled in by
      <filename>suspend-then-hibernate.target</filename> to execute system suspend
      with a timeout that will activate hibernate later.</para>
-@@ -58,6 +62,7 @@
+@@ -55,6 +59,7 @@
      arguments to them. The first argument will be
      <literal>pre</literal>, the second either
      <literal>suspend</literal>, <literal>hibernate</literal>,
@@ -113,7 +113,7 @@ index cef7adb671..ca238ec217 100644
      <literal>hybrid-sleep</literal>, or <literal>suspend-then-hibernate</literal>
      depending on the chosen action.
      Immediately after leaving system suspend and/or hibernation the
-@@ -76,7 +81,8 @@
+@@ -73,7 +78,8 @@
  
      <para>Note that
      <filename>systemd-suspend.service</filename>,
@@ -123,7 +123,7 @@ index cef7adb671..ca238ec217 100644
      <filename>systemd-hybrid-sleep.service</filename>
      <filename>systemd-suspend-then-hibernate.service</filename>
      should never be executed directly. Instead, trigger system sleep
-@@ -106,11 +112,12 @@
+@@ -103,11 +109,12 @@
        <varlistentry>
          <term><option>suspend</option></term>
          <term><option>hibernate</option></term>
@@ -151,7 +151,7 @@ index 590fc49604..c4f479566d 100644
      "suspend-then-hibernate:Suspend the system for a period of time, and then hibernate it"
      "try-reload-or-restart:Reload one or more units if possible, otherwise restart if active"
 diff --git a/src/basic/special.h b/src/basic/special.h
-index 379a3d7979..6bb83e3ecd 100644
+index add1c1d507..91094bf27a 100644
 --- a/src/basic/special.h
 +++ b/src/basic/special.h
 @@ -17,6 +17,7 @@
@@ -163,10 +163,10 @@ index 379a3d7979..6bb83e3ecd 100644
  #define SPECIAL_SUSPEND_THEN_HIBERNATE_TARGET "suspend-then-hibernate.target"
  
 diff --git a/src/shared/sleep-config.c b/src/shared/sleep-config.c
-index 2e22bd0bbe..82202783b1 100644
+index 7f23e54102..50562544ea 100644
 --- a/src/shared/sleep-config.c
 +++ b/src/shared/sleep-config.c
-@@ -28,12 +28,13 @@
+@@ -32,12 +32,13 @@
  #include "strv.h"
  
  int parse_sleep_config(const char *verb, bool *ret_allow, char ***ret_modes, char ***ret_states, usec_t *ret_delay) {
@@ -181,7 +181,7 @@ index 2e22bd0bbe..82202783b1 100644
                  **hybrid_mode = NULL, **hybrid_state = NULL;
          _cleanup_strv_free_ char **modes, **states; /* always initialized below */
          usec_t delay = 180 * USEC_PER_MINUTE;
-@@ -41,6 +42,7 @@ int parse_sleep_config(const char *verb, bool *ret_allow, char ***ret_modes, cha
+@@ -45,6 +46,7 @@ int parse_sleep_config(const char *verb, bool *ret_allow, char ***ret_modes, cha
          const ConfigTableItem items[] = {
                  { "Sleep", "AllowSuspend",              config_parse_tristate, 0, &allow_suspend },
                  { "Sleep", "AllowHibernation",          config_parse_tristate, 0, &allow_hibernate },
@@ -189,7 +189,7 @@ index 2e22bd0bbe..82202783b1 100644
                  { "Sleep", "AllowSuspendThenHibernate", config_parse_tristate, 0, &allow_s2h },
                  { "Sleep", "AllowHybridSleep",          config_parse_tristate, 0, &allow_hybrid_sleep },
  
-@@ -48,6 +50,8 @@ int parse_sleep_config(const char *verb, bool *ret_allow, char ***ret_modes, cha
+@@ -52,6 +54,8 @@ int parse_sleep_config(const char *verb, bool *ret_allow, char ***ret_modes, cha
                  { "Sleep", "SuspendState",              config_parse_strv, 0, &suspend_state },
                  { "Sleep", "HibernateMode",             config_parse_strv, 0, &hibernate_mode  },
                  { "Sleep", "HibernateState",            config_parse_strv, 0, &hibernate_state },
@@ -198,7 +198,7 @@ index 2e22bd0bbe..82202783b1 100644
                  { "Sleep", "HybridSleepMode",           config_parse_strv, 0, &hybrid_mode  },
                  { "Sleep", "HybridSleepState",          config_parse_strv, 0, &hybrid_state },
  
-@@ -84,6 +88,19 @@ int parse_sleep_config(const char *verb, bool *ret_allow, char ***ret_modes, cha
+@@ -88,6 +92,19 @@ int parse_sleep_config(const char *verb, bool *ret_allow, char ***ret_modes, cha
                  else
                          states = strv_new("disk");
  
@@ -218,7 +218,7 @@ index 2e22bd0bbe..82202783b1 100644
          } else if (streq(verb, "hybrid-sleep")) {
                  allow = allow_hybrid_sleep > 0 ||
                          (allow_suspend != 0 && allow_hibernate != 0);
-@@ -106,7 +123,7 @@ int parse_sleep_config(const char *verb, bool *ret_allow, char ***ret_modes, cha
+@@ -110,7 +127,7 @@ int parse_sleep_config(const char *verb, bool *ret_allow, char ***ret_modes, cha
          } else
                  assert_not_reached("what verb");
  
@@ -228,10 +228,10 @@ index 2e22bd0bbe..82202783b1 100644
                  return log_oom();
  
 diff --git a/src/sleep/sleep.c b/src/sleep/sleep.c
-index 5b7984a6f2..595f6f9d73 100644
+index 11aabaf923..f0c9b8e1cc 100644
 --- a/src/sleep/sleep.c
 +++ b/src/sleep/sleep.c
-@@ -292,6 +292,7 @@ static int help(void) {
+@@ -297,6 +297,7 @@ static int help(void) {
                 "\nCommands:\n"
                 "  suspend                Suspend the system\n"
                 "  hibernate              Hibernate the system\n"
@@ -239,7 +239,7 @@ index 5b7984a6f2..595f6f9d73 100644
                 "  hybrid-sleep           Both hibernate and suspend the system\n"
                 "  suspend-then-hibernate Initially suspend and then hibernate\n"
                 "                         the system after a fixed period of time\n"
-@@ -341,7 +342,7 @@ static int parse_argv(int argc, char *argv[]) {
+@@ -346,7 +347,7 @@ static int parse_argv(int argc, char *argv[]) {
  
          arg_verb = argv[optind];
  
@@ -262,10 +262,10 @@ index dc2ed37f70..ac57aa881d 100644
  #HybridSleepState=disk
  #HibernateDelaySec=180min
 diff --git a/src/systemctl/systemctl.c b/src/systemctl/systemctl.c
-index 63dae2c872..1cf2c85e94 100644
+index 92bbcfd276..16935b9e8d 100644
 --- a/src/systemctl/systemctl.c
 +++ b/src/systemctl/systemctl.c
-@@ -145,6 +145,7 @@ static enum action {
+@@ -133,6 +133,7 @@ static enum action {
          ACTION_EXIT,
          ACTION_SUSPEND,
          ACTION_HIBERNATE,
@@ -273,27 +273,23 @@ index 63dae2c872..1cf2c85e94 100644
          ACTION_HYBRID_SLEEP,
          ACTION_SUSPEND_THEN_HIBERNATE,
          ACTION_RUNLEVEL2,
-@@ -3072,6 +3073,7 @@ static const struct {
-         [ACTION_EXIT]                 = { SPECIAL_EXIT_TARGET,                     "exit",                   "replace-irreversibly" },
-         [ACTION_SUSPEND]              = { SPECIAL_SUSPEND_TARGET,                  "suspend",                "replace-irreversibly" },
-         [ACTION_HIBERNATE]            = { SPECIAL_HIBERNATE_TARGET,                "hibernate",              "replace-irreversibly" },
-+        [ACTION_HIBERNATE_THEN_REBOOT] = { SPECIAL_HIBERNATE_THEN_REBOOT_TARGET,   "hibernate-then-reboot",  "replace-irreversibly" },
-         [ACTION_HYBRID_SLEEP]         = { SPECIAL_HYBRID_SLEEP_TARGET,             "hybrid-sleep",           "replace-irreversibly" },
+@@ -3142,6 +3143,7 @@ static const struct {
+         [ACTION_EXIT]                   = { SPECIAL_EXIT_TARGET,                   "exit",                   "replace-irreversibly" },
+         [ACTION_SUSPEND]                = { SPECIAL_SUSPEND_TARGET,                "suspend",                "replace-irreversibly" },
+         [ACTION_HIBERNATE]              = { SPECIAL_HIBERNATE_TARGET,              "hibernate",              "replace-irreversibly" },
++        [ACTION_HIBERNATE_THEN_REBOOT]  = { SPECIAL_HIBERNATE_THEN_REBOOT_TARGET,  "hibernate-then-reboot",  "replace-irreversibly" },
+         [ACTION_HYBRID_SLEEP]           = { SPECIAL_HYBRID_SLEEP_TARGET,           "hybrid-sleep",           "replace-irreversibly" },
          [ACTION_SUSPEND_THEN_HIBERNATE] = { SPECIAL_SUSPEND_THEN_HIBERNATE_TARGET, "suspend-then-hibernate", "replace-irreversibly" },
  };
-@@ -3310,6 +3312,11 @@ static int logind_reboot(enum action a) {
-                 description = "hibernate system";
-                 break;
- 
-+        case ACTION_HIBERNATE_THEN_REBOOT:
-+                method = "HibernateThenReboot";
-+                description = "hibernate and reboot system";
-+                break;
-+
-         case ACTION_HYBRID_SLEEP:
-                 method = "HybridSleep";
-                 description = "put system into hybrid sleep";
-@@ -3679,6 +3686,7 @@ static int start_special(int argc, char *argv[], void *userdata) {
+@@ -3362,6 +3364,7 @@ static int logind_reboot(enum action a) {
+                 [ACTION_HALT]                   = { "Halt",                 "halt system"                     },
+                 [ACTION_SUSPEND]                = { "Suspend",              "suspend system"                  },
+                 [ACTION_HIBERNATE]              = { "Hibernate",            "hibernate system"                },
++                [ACTION_HIBERNATE_THEN_REBOOT]  = { "HibernateThenReboot",  "hibernate and reboot system"     },
+                 [ACTION_HYBRID_SLEEP]           = { "HybridSleep",          "put system into hybrid sleep"    },
+                 [ACTION_SUSPEND_THEN_HIBERNATE] = { "SuspendThenHibernate", "suspend system, hibernate later" },
+         };
+@@ -3801,6 +3804,7 @@ static int start_special(int argc, char *argv[], void *userdata) {
                             ACTION_HALT,
                             ACTION_SUSPEND,
                             ACTION_HIBERNATE,
@@ -301,7 +297,7 @@ index 63dae2c872..1cf2c85e94 100644
                             ACTION_HYBRID_SLEEP,
                             ACTION_SUSPEND_THEN_HIBERNATE)) {
  
-@@ -7314,6 +7322,7 @@ static int systemctl_help(void) {
+@@ -7717,6 +7721,7 @@ static int systemctl_help(void) {
                 "  switch-root ROOT [INIT]             Change to a different root file system\n"
                 "  suspend                             Suspend the system\n"
                 "  hibernate                           Hibernate the system\n"
@@ -309,7 +305,7 @@ index 63dae2c872..1cf2c85e94 100644
                 "  hybrid-sleep                        Hibernate and suspend the system\n"
                 "  suspend-then-hibernate              Suspend the system, wake after a period of\n"
                 "                                      time and put it into hibernate\n"
-@@ -8454,6 +8463,7 @@ static int systemctl_main(int argc, char *argv[]) {
+@@ -8826,6 +8831,7 @@ static int systemctl_main(int argc, char *argv[]) {
                  { "kexec",                 VERB_ANY, 1,        VERB_ONLINE_ONLY, start_system_special },
                  { "suspend",               VERB_ANY, 1,        VERB_ONLINE_ONLY, start_system_special },
                  { "hibernate",             VERB_ANY, 1,        VERB_ONLINE_ONLY, start_system_special },
@@ -317,7 +313,7 @@ index 63dae2c872..1cf2c85e94 100644
                  { "hybrid-sleep",          VERB_ANY, 1,        VERB_ONLINE_ONLY, start_system_special },
                  { "suspend-then-hibernate",VERB_ANY, 1,        VERB_ONLINE_ONLY, start_system_special },
                  { "default",               VERB_ANY, 1,        VERB_ONLINE_ONLY, start_special        },
-@@ -8793,6 +8803,7 @@ static int run(int argc, char *argv[]) {
+@@ -9165,6 +9171,7 @@ static int run(int argc, char *argv[]) {
          case ACTION_EXIT:
          case ACTION_SUSPEND:
          case ACTION_HIBERNATE:
@@ -348,21 +344,18 @@ index 0000000000..ead7f1bc8c
 +After=systemd-hibernate-then-reboot.service
 +StopWhenUnneeded=yes
 diff --git a/units/meson.build b/units/meson.build
-index d69508467f..8623e90656 100644
+index a5610506d5..af25150b97 100644
 --- a/units/meson.build
 +++ b/units/meson.build
-@@ -21,8 +21,9 @@ units = [
+@@ -21,6 +21,7 @@ units = [
           'runlevel5.target default.target'],
          ['halt.target',                         ''],
          ['hibernate.target',                    'ENABLE_HIBERNATE'],
 +        ['hibernate-then-reboot.target',        'ENABLE_HIBERNATE'],
          ['hybrid-sleep.target',                 'ENABLE_HIBERNATE'],
--        ['suspend-then-hibernate.target',         'ENABLE_HIBERNATE'],
-+        ['suspend-then-hibernate.target',       'ENABLE_HIBERNATE'],
+         ['suspend-then-hibernate.target',       'ENABLE_HIBERNATE'],
          ['initrd-fs.target',                    ''],
-         ['initrd-root-device.target',           ''],
-         ['initrd-root-fs.target',               ''],
-@@ -146,6 +147,7 @@ in_units = [
+@@ -143,6 +144,7 @@ in_units = [
          ['systemd-halt.service',                 ''],
          ['systemd-hibernate-resume@.service',    'ENABLE_HIBERNATE'],
          ['systemd-hibernate.service',            'ENABLE_HIBERNATE'],
